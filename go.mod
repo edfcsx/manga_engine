@@ -1,4 +1,4 @@
-module manga_engine
+module github.com/edfcsx/manga_engine
 
 go 1.23.1
 
