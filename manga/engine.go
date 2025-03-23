@@ -81,7 +81,7 @@ func (m *manga) Initialize(window mangaI.Window, scene mangaI.Scene, fpsTarget u
 	m.window = sdlWindow
 	m.renderer = renderer
 	m.running = true
-	Engine.scene.Initialize()
+	m.scene.Initialize()
 
 	for m.running {
 		// run global scripts
