@@ -8,16 +8,18 @@ import (
 const PosCentered = sdl.WINDOWPOS_CENTERED
 
 type Window struct {
-	title string
-	pos   vector.Vec2[int32]
-	size  vector.Vec2[int32]
+	title      string
+	pos        vector.Vec2[int32]
+	size       vector.Vec2[int32]
+	gameWindow *sdl.Window
 }
 
 func Make() *Window {
 	return &Window{
-		title: "",
-		pos:   vector.MakeVec2[int32](0, 0),
-		size:  vector.MakeVec2[int32](0, 0),
+		title:      "",
+		pos:        vector.MakeVec2[int32](0, 0),
+		size:       vector.MakeVec2[int32](0, 0),
+		gameWindow: nil,
 	}
 }
 
@@ -27,6 +29,10 @@ func (w *Window) Title() string {
 
 func (w *Window) SetTitle(title string) {
 	w.title = title
+
+	if w.gameWindow != nil {
+		w.gameWindow.SetTitle(title)
+	}
 }
 
 func (w *Window) Size() vector.Vec2[int32] {
@@ -45,4 +51,8 @@ func (w *Window) Position() vector.Vec2[int32] {
 func (w *Window) SetPosition(x, y int32) {
 	w.pos.X = x
 	w.pos.Y = y
+}
+
+func (w *Window) SetGameWindow(window *sdl.Window) {
+	w.gameWindow = window
 }
