@@ -182,3 +182,11 @@ func (m *manga) processEvents() {
 func (m *manga) GetFPS() float64 {
 	return m.fps.GetFPS()
 }
+
+func (m *manga) GetRenderer() *sdl.Renderer {
+	return m.renderer
+}
+
+func (m *manga) GetWindow() *sdl.Window {
+	return m.window
+}

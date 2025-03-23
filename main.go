@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/edfcsx/manga_engine/manga"
 	"github.com/edfcsx/manga_engine/window"
 )
@@ -12,7 +11,7 @@ var win = window.Make()
 
 func (h *Home) Initialize() {}
 func (h *Home) Update() {
-	win.SetTitle(fmt.Sprintf("Manga Engine - V.0.0.0   FPS: %f", manga.Engine.GetFPS()))
+	//win.SetTitle(fmt.Sprintf("Manga Engine - V.0.0.0   FPS: %f", manga.Engine.GetFPS()))
 }
 func (h *Home) Render() {}
 
