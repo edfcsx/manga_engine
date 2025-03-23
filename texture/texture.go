@@ -1,10 +1,13 @@
 package texture
 
 import (
-	"github.com/edfcsx/manga_engine/manga"
+	"errors"
 	"github.com/veandco/go-sdl2/img"
 	"github.com/veandco/go-sdl2/sdl"
 )
+
+var RendererPtr *sdl.Renderer = nil
+var textures = map[string]*Texture{}
 
 type Texture struct {
 	Width  int32
@@ -12,33 +15,37 @@ type Texture struct {
 	source *sdl.Texture
 }
 
-func Draw(texture *Texture, src *sdl.Rect, dst *sdl.Rect, flip sdl.RendererFlip) {
-	err := manga.Engine.GetRenderer().CopyEx(texture, src, dst, 0, nil, flip)
-
-	if err != nil {
-		panic(err)
-	}
+func (t *Texture) GetSource() *sdl.Texture {
+	return t.source
 }
 
-func MakeTexture(filePath string) *Texture {
+func GetTexture(id string) *Texture {
+	return textures[id]
+}
+
+func MakeTexture(id string, filePath string) error {
 	surface, err := img.Load(filePath)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	texture, err := manga.Engine.GetRenderer().CreateTextureFromSurface(surface)
+	if RendererPtr == nil {
+		panic(errors.New("texture: RendererPtr not initialized"))
+	}
+
+	texture, err := RendererPtr.CreateTextureFromSurface(surface)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	text := &Texture{
+	textures[id] = &Texture{
 		Width:  surface.W,
 		Height: surface.H,
 		source: texture,
 	}
 
 	surface.Free()
-	return text
+	return nil
 }

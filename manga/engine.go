@@ -1,8 +1,11 @@
 package manga
 
 import (
+	"errors"
 	mangaI "github.com/edfcsx/manga_engine/interfaces"
 	"github.com/edfcsx/manga_engine/keyboard"
+	"github.com/edfcsx/manga_engine/texture"
+	"github.com/edfcsx/manga_engine/vector"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -72,6 +75,8 @@ func (m *manga) Initialize(window mangaI.Window, scene mangaI.Scene, fpsTarget u
 	if err != nil {
 		panic(err)
 	}
+
+	texture.RendererPtr = renderer
 
 	m.window = sdlWindow
 	m.renderer = renderer
@@ -190,3 +195,19 @@ func (m *manga) GetRenderer() *sdl.Renderer {
 func (m *manga) GetWindow() *sdl.Window {
 	return m.window
 }
+
+func (m *manga) Draw(textureID string, src vector.Vec4[int32], dest vector.Vec4[int32], angle float64) error {
+	srcRect := &sdl.Rect{X: src.X, Y: src.Y, W: src.W, H: src.H}
+	destRect := &sdl.Rect{X: dest.X, Y: dest.Y, W: dest.W, H: dest.H}
+	t := texture.GetTexture(textureID)
+
+	if t == nil {
+		return errors.New("engine: Texture not exists")
+	}
+
+	err := m.renderer.CopyEx(t.GetSource(), srcRect, destRect, angle, nil, sdl.FLIP_NONE)
+	return err
+}
+
+// check manga implements correct interface
+var _ mangaI.Engine = (*manga)(nil)
