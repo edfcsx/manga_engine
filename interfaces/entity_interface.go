@@ -18,6 +18,9 @@ type Entity interface {
 	Update(deltaTime float64)
 	Render()
 	SetSelf(self interface{})
+	IsActive() bool
+	Destroy()
+	SetDestroy(destroy func())
 }
 
 type TransformComponent interface {
