@@ -140,7 +140,7 @@ func (m *manga) update() {
 	}
 
 	m.ticksLastFrame = updt.currentTicks
-	m.scene.Update()
+	m.scene.Update(m.deltaTime)
 	m.fps.Update()
 }
 

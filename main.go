@@ -18,7 +18,7 @@ func (h *Home) Initialize() {
 		panic(err)
 	}
 }
-func (h *Home) Update() {
+func (h *Home) Update(deltaTime float64) {
 	//win.SetTitle(fmt.Sprintf("Manga Engine - V.0.0.0   FPS: %f", manga.Engine.GetFPS()))
 }
 

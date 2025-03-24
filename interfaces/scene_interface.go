@@ -2,6 +2,6 @@ package mangaI
 
 type Scene interface {
 	Initialize()
-	Update()
+	Update(float64)
 	Render()
 }
