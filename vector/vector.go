@@ -29,3 +29,7 @@ type Vec4[T constraints.Ordered] struct {
 	W T
 	H T
 }
+
+func MakeVec4[T constraints.Ordered](x, y, w, h T) Vec4[T] {
+	return Vec4[T]{X: x, Y: y, W: w, H: h}
+}

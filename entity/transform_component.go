@@ -23,7 +23,7 @@ func MakeTransformComponent(entity mangaI.Entity) *TransformComponent {
 	}
 }
 
-func (t *TransformComponent) GetType() int32 {
+func (t *TransformComponent) GetType() string {
 	return mangaI.TransformComponentID
 }
 

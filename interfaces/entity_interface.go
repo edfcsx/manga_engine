@@ -3,11 +3,12 @@ package mangaI
 import "github.com/edfcsx/manga_engine/vector"
 
 const (
-	TransformComponentID = iota
+	TransformComponentID = "TRANSFORM"
+	SpriteComponentID    = "SPRITE"
 )
 
 type Component interface {
-	GetType() int32
+	GetType() string
 	Update(deltaTime float64)
 	Render()
 }
@@ -15,10 +16,13 @@ type Component interface {
 type Entity interface {
 	AddComponent(componentType string, c Component)
 	GetComponent(componentType string) Component
+	GetLabel() string
+	Initialize()
 	Update(deltaTime float64)
 	Render()
 	SetSelf(self interface{})
 	IsActive() bool
+	SetIsActive(status bool)
 	Destroy()
 	SetDestroy(destroy func())
 }

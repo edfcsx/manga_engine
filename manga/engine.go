@@ -41,30 +41,25 @@ var Engine = &manga{
 	fps:             makeFpsCounter(),
 }
 
-func (m *manga) Initialize(window mangaI.Window, scene mangaI.Scene, fpsTarget uint) {
+/*
+Se faz necessário criar a janela e o renderer na inicialização do pacote
+caso ele seja criado depois e a primeira cena do jogo carregue alguma
+textura, isso ira falhar, pois o ponteiro de render ainda não foi definido no
+pacote texture.
+*/
+func init() {
 	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		panic(err)
 	}
 
-	defer m.Stop()
-
-	m.frameTarget = fpsTarget
-	m.frameTargetTime = 1000.0 / float64(fpsTarget)
-
-	m.scene = scene
-	position := window.Position()
-	size := window.Size()
-
 	sdlWindow, err := sdl.CreateWindow(
-		window.Title(),
-		position.X,
-		position.Y,
-		size.X,
-		size.Y,
-		sdl.WINDOW_SHOWN,
+		"",
+		0,
+		0,
+		0,
+		0,
+		sdl.WINDOW_HIDDEN,
 	)
-
-	window.SetGameWindow(sdlWindow)
 
 	if err != nil {
 		panic(err)
@@ -76,11 +71,26 @@ func (m *manga) Initialize(window mangaI.Window, scene mangaI.Scene, fpsTarget u
 		panic(err)
 	}
 
+	Engine.window = sdlWindow
+	Engine.renderer = renderer
 	texture.RendererPtr = renderer
+}
 
-	m.window = sdlWindow
-	m.renderer = renderer
+func (m *manga) Initialize(window mangaI.Window, scene mangaI.Scene, fpsTarget uint) {
+	defer m.Stop()
+
+	m.frameTarget = fpsTarget
+	m.frameTargetTime = 1000.0 / float64(fpsTarget)
+	m.scene = scene
+	position := window.Position()
+	size := window.Size()
+
+	m.window.SetPosition(position.X, position.Y)
+	m.window.SetSize(size.X, size.Y)
+	window.SetGameWindow(m.window)
 	m.running = true
+
+	m.window.Show()
 	m.scene.Initialize()
 
 	for m.running {
@@ -206,6 +216,13 @@ func (m *manga) Draw(textureID string, src vector.Vec4[int32], dest vector.Vec4[
 	}
 
 	err := m.renderer.CopyEx(t.GetSource(), srcRect, destRect, angle, nil, sdl.FLIP_NONE)
+	return err
+}
+
+func (m *manga) DrawTexture(texture mangaI.Texture, src vector.Vec4[int32], dest vector.Vec4[int32], angle float64) error {
+	srcRect := &sdl.Rect{X: src.X, Y: src.Y, W: src.W, H: src.H}
+	destRect := &sdl.Rect{X: dest.X, Y: dest.Y, W: dest.W, H: dest.H}
+	err := m.renderer.CopyEx(texture.GetSource(), srcRect, destRect, angle, nil, sdl.FLIP_NONE)
 	return err
 }
 

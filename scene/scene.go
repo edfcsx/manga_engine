@@ -1,17 +1,19 @@
 package scene
 
-import mangaI "github.com/edfcsx/manga_engine/interfaces"
+import (
+	mangaI "github.com/edfcsx/manga_engine/interfaces"
+)
 
 type Scene struct {
 	entities          []mangaI.Entity
 	garbage           map[int]interface{}
 	InitializeHandler func()
-	UpdateHandler     func()
+	UpdateHandler     func(deltaTime float64)
 	RenderHandler     func()
 }
 
 func (s *Scene) Initialize() {
-	s.entities = make([]mangaI.Entity, 0)
+	//s.entities = make([]mangaI.Entity, 0, 10)
 	s.garbage = make(map[int]interface{})
 
 	if s.InitializeHandler != nil {
@@ -27,7 +29,7 @@ func (s *Scene) Update(deltaTime float64) {
 	}
 
 	if s.UpdateHandler != nil {
-		s.UpdateHandler()
+		s.UpdateHandler(deltaTime)
 	}
 
 	// remove garbage entities
@@ -49,6 +51,7 @@ func (s *Scene) Render() {
 func (s *Scene) AddEntity(entity mangaI.Entity) {
 	index := len(s.entities)
 	s.entities = append(s.entities, entity)
+	entity.Initialize()
 
 	entity.SetDestroy(func() {
 		s.garbage[index] = nil
