@@ -17,6 +17,7 @@ func main() {
 	win.SetTitle("Manga Engine - V.0.0.0")
 	win.SetPosition(window.PosCentered, window.PosCentered)
 	win.SetSize(800, 600)
+	win.SetIsResizable(false)
 
 	manga.Engine.Initialize(win, game.HomeScene, manga.FPS_UNLIMITED)
 }

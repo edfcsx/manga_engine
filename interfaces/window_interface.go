@@ -13,4 +13,6 @@ type Window interface {
 	Position() vector.Vec2[int32]
 	SetPosition(x, y int32)
 	SetGameWindow(window *sdl.Window)
+	SetIsResizable(status bool)
+	IsResizable() bool
 }

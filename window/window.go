@@ -8,10 +8,11 @@ import (
 const PosCentered = sdl.WINDOWPOS_CENTERED
 
 type Window struct {
-	title      string
-	pos        vector.Vec2[int32]
-	size       vector.Vec2[int32]
-	gameWindow *sdl.Window
+	title       string
+	pos         vector.Vec2[int32]
+	size        vector.Vec2[int32]
+	gameWindow  *sdl.Window
+	isResizable bool
 }
 
 func Make() *Window {
@@ -55,4 +56,12 @@ func (w *Window) SetPosition(x, y int32) {
 
 func (w *Window) SetGameWindow(window *sdl.Window) {
 	w.gameWindow = window
+}
+
+func (w *Window) SetIsResizable(status bool) {
+	w.isResizable = status
+}
+
+func (w *Window) IsResizable() bool {
+	return w.isResizable
 }

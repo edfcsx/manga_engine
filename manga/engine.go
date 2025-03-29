@@ -85,12 +85,19 @@ func (m *manga) Initialize(window mangaI.Window, scene mangaI.Scene, fpsTarget u
 	position := window.Position()
 	size := window.Size()
 
-	m.window.SetPosition(position.X, position.Y)
 	m.window.SetSize(size.X, size.Y)
+
+	if !window.IsResizable() {
+		m.window.SetMinimumSize(size.X, size.Y)
+		m.window.SetMaximumSize(size.X, size.Y)
+	}
+
 	window.SetGameWindow(m.window)
 	m.running = true
 
 	m.window.Show()
+	m.window.SetPosition(position.X, position.Y)
+
 	m.scene.Initialize()
 
 	for m.running {

@@ -21,6 +21,7 @@ func (p *Player) Initialize() {
 
 	transform := entity.MakeTransformComponent(p)
 	transform.Size(32, 32)
+	transform.Scale(4)
 
 	p.AddComponent(mangaI.TransformComponentID, transform)
 
