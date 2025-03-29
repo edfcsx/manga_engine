@@ -1,6 +1,8 @@
 package keyboard
 
-import "github.com/veandco/go-sdl2/sdl"
+import (
+	"github.com/veandco/go-sdl2/sdl"
+)
 
 var keyMap = map[int]bool{}
 
@@ -13,10 +15,7 @@ func RegisterKeyReleased(code int) {
 }
 
 func IsKeyPressed(code int) bool {
-	if keyMap[int(code)] {
-		return true
-	}
-	return false
+	return keyMap[code]
 }
 
 func IsAnyKeyPressed(codes []int) bool {

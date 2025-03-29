@@ -19,7 +19,7 @@ func main() {
 	win.SetSize(800, 600)
 	win.SetIsResizable(false)
 
-	manga.Engine.Initialize(win, game.HomeScene, manga.FPS_UNLIMITED)
+	manga.Engine.Initialize(win, game.HomeScene, 60)
 }
 
 // TODO: é importante testar o destroy das entidades

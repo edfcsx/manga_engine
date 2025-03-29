@@ -5,7 +5,7 @@ import "github.com/edfcsx/manga_engine/vector"
 const (
 	TransformComponentID = "TRANSFORM"
 	SpriteComponentID    = "SPRITE"
-	ScriptComponentID
+	ScriptComponentID    = "SCRIPT"
 )
 
 type Component interface {
@@ -38,4 +38,5 @@ type TransformComponent interface {
 	GetVelocity() vector.Vec2[int32]
 	GetSize() vector.Vec2[int32]
 	GetScale() int32
+	Enable8DirectionsMove(upKeys []int, downKeys []int, leftKeys []int, rightKeys []int)
 }
