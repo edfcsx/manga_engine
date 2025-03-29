@@ -1,6 +1,7 @@
 package game
 
 import (
+	"fmt"
 	"github.com/edfcsx/manga_engine/entity"
 	mangaI "github.com/edfcsx/manga_engine/interfaces"
 	"github.com/edfcsx/manga_engine/texture"
@@ -32,4 +33,8 @@ func (p *Player) Initialize() {
 	}
 
 	p.AddComponent(mangaI.SpriteComponentID, entity.MakeSpriteComponent(p, "start"))
+
+	p.AddComponent(mangaI.ScriptComponentID, entity.MakeScriptComponent(p, func() {
+		fmt.Println("calling script component baby")
+	}))
 }

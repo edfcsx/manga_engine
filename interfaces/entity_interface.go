@@ -5,6 +5,7 @@ import "github.com/edfcsx/manga_engine/vector"
 const (
 	TransformComponentID = "TRANSFORM"
 	SpriteComponentID    = "SPRITE"
+	ScriptComponentID
 )
 
 type Component interface {
