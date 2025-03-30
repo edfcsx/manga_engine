@@ -41,6 +41,9 @@ var Engine = &manga{
 	fps:             makeFpsCounter(),
 }
 
+/* scripts globais executados fora das entidades junto ao game loop */
+var globalsScript []func()
+
 /*
 Se faz necessário criar a janela e o renderer na inicialização do pacote
 caso ele seja criado depois e a primeira cena do jogo carregue alguma
@@ -101,7 +104,10 @@ func (m *manga) Initialize(window mangaI.Window, scene mangaI.Scene, fpsTarget u
 	m.scene.Initialize()
 
 	for m.running {
-		// run global scripts
+		for _, script := range globalsScript {
+			script()
+		}
+
 		m.processEvents()
 		m.update()
 		m.render()
@@ -232,6 +238,10 @@ func (m *manga) DrawTexture(texture mangaI.Texture, src vector.Vec4[int32], dest
 
 	err := m.renderer.CopyEx(texture.GetSource(), srcRect, destRect, angle, nil, sdl.RendererFlip(flip))
 	return err
+}
+
+func (m *manga) AddGlobalScript(script func()) {
+	globalsScript = append(globalsScript, script)
 }
 
 // check manga implements correct interface

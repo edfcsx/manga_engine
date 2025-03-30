@@ -15,4 +15,5 @@ type Engine interface {
 	GetWindow() *sdl.Window
 	Draw(textureID string, src vector.Vec4[int32], dest vector.Vec4[int32], angle float64) error
 	DrawTexture(textureID Texture, src vector.Vec4[int32], dest vector.Vec4[int32], angle float64, flip FlipType) error
+	AddGlobalScript(fn func())
 }
