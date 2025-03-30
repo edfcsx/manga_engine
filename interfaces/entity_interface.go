@@ -1,6 +1,9 @@
 package mangaI
 
-import "github.com/edfcsx/manga_engine/vector"
+import (
+	"github.com/edfcsx/manga_engine/vector"
+	"github.com/veandco/go-sdl2/sdl"
+)
 
 const (
 	TransformComponentID = "TRANSFORM"
@@ -39,4 +42,19 @@ type TransformComponent interface {
 	GetSize() vector.Vec2[int32]
 	GetScale() int32
 	Enable8DirectionsMove(upKeys []int, downKeys []int, leftKeys []int, rightKeys []int)
+}
+
+type FlipType int
+
+const (
+	FLIP_NONE       FlipType = FlipType(sdl.FLIP_NONE)
+	FLIP_VERTICAL   FlipType = FlipType(sdl.FLIP_VERTICAL)
+	FLIP_HORIZONTAL          = FlipType(sdl.FLIP_HORIZONTAL)
+)
+
+type SpriteComponente interface {
+	Component
+	AddAnimation(id string, index int32, numFrames int32, speed int32, isFixed bool, flip FlipType)
+	PlayAnimation(id string)
+	SetFlip(flip FlipType)
 }

@@ -226,10 +226,11 @@ func (m *manga) Draw(textureID string, src vector.Vec4[int32], dest vector.Vec4[
 	return err
 }
 
-func (m *manga) DrawTexture(texture mangaI.Texture, src vector.Vec4[int32], dest vector.Vec4[int32], angle float64) error {
+func (m *manga) DrawTexture(texture mangaI.Texture, src vector.Vec4[int32], dest vector.Vec4[int32], angle float64, flip mangaI.FlipType) error {
 	srcRect := &sdl.Rect{X: src.X, Y: src.Y, W: src.W, H: src.H}
 	destRect := &sdl.Rect{X: dest.X, Y: dest.Y, W: dest.W, H: dest.H}
-	err := m.renderer.CopyEx(texture.GetSource(), srcRect, destRect, angle, nil, sdl.FLIP_NONE)
+
+	err := m.renderer.CopyEx(texture.GetSource(), srcRect, destRect, angle, nil, sdl.RendererFlip(flip))
 	return err
 }
 

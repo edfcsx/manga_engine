@@ -14,6 +14,7 @@ type Animation struct {
 	numFrames int32
 	speed     int32
 	isFixed   bool
+	flip      mangaI.FlipType
 }
 
 type SpriteComponent struct {
@@ -24,6 +25,7 @@ type SpriteComponent struct {
 	dst           vector.Vec4[int32]
 	animations    map[string]*Animation
 	currAnimation *Animation
+	flip          mangaI.FlipType
 }
 
 func MakeSpriteComponent(e mangaI.Entity, textureID string) *SpriteComponent {
@@ -46,6 +48,7 @@ func MakeSpriteComponent(e mangaI.Entity, textureID string) *SpriteComponent {
 		src:        vector.MakeVec4[int32](0, 0, 0, 0),
 		dst:        vector.MakeVec4[int32](0, 0, 0, 0),
 		animations: make(map[string]*Animation),
+		flip:       mangaI.FLIP_NONE,
 	}
 }
 
@@ -84,9 +87,35 @@ func (s *SpriteComponent) Update(deltaTime float64) {
 }
 
 func (s *SpriteComponent) Render() {
-	err := manga.Engine.DrawTexture(s.texture, s.src, s.dst, 0.0)
+	var err error
+
+	if s.currAnimation != nil {
+		err = manga.Engine.DrawTexture(s.texture, s.src, s.dst, 0.0, s.currAnimation.flip)
+	} else {
+		err = manga.Engine.DrawTexture(s.texture, s.src, s.dst, 0.0, s.flip)
+	}
 
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (s *SpriteComponent) AddAnimation(id string, index int32, numFrames int32, speed int32, isFixed bool, flip mangaI.FlipType) {
+	s.animations[id] = &Animation{
+		index:     index,
+		numFrames: numFrames,
+		speed:     speed,
+		isFixed:   isFixed,
+		flip:      flip,
+	}
+}
+
+func (s *SpriteComponent) PlayAnimation(id string) {
+	if animation, ok := s.animations[id]; ok {
+		s.currAnimation = animation
+	}
+}
+
+func (s *SpriteComponent) SetFlip(flip mangaI.FlipType) {
+	s.flip = flip
 }
