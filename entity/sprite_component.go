@@ -77,8 +77,8 @@ func (s *SpriteComponent) Update(deltaTime float64) {
 		s.src.Y = s.currAnimation.index * s.src.H
 	}
 
-	s.dst.X = position.X
-	s.dst.Y = position.Y
+	s.dst.X = int32(position.X)
+	s.dst.Y = int32(position.Y)
 	s.dst.W = size.X * scale
 	s.dst.H = size.Y * scale
 }

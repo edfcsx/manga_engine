@@ -30,11 +30,11 @@ type Entity interface {
 
 type TransformComponent interface {
 	Component
-	Position(x, y int32)
+	Position(x, y float64)
 	Velocity(x, y int32)
 	Size(x, y int32)
 	Scale(int32)
-	GetPosition() vector.Vec2[int32]
+	GetPosition() vector.Vec2[float64]
 	GetVelocity() vector.Vec2[int32]
 	GetSize() vector.Vec2[int32]
 	GetScale() int32

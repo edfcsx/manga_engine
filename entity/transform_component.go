@@ -4,7 +4,6 @@ import (
 	mangaI "github.com/edfcsx/manga_engine/interfaces"
 	"github.com/edfcsx/manga_engine/keyboard"
 	"github.com/edfcsx/manga_engine/vector"
-	"math"
 )
 
 type moveKeys struct {
@@ -18,7 +17,7 @@ type moveKeys struct {
 
 type TransformComponent struct {
 	Entity   mangaI.Entity
-	position vector.Vec2[int32]
+	position vector.Vec2[float64]
 	velocity vector.Vec2[int32]
 	size     vector.Vec2[int32]
 	scale    int32
@@ -28,7 +27,7 @@ type TransformComponent struct {
 func MakeTransformComponent(entity mangaI.Entity) *TransformComponent {
 	return &TransformComponent{
 		Entity:   entity,
-		position: vector.MakeVec2[int32](0, 0),
+		position: vector.MakeVec2[float64](0.0, 0.0),
 		velocity: vector.MakeVec2[int32](0, 0),
 		size:     vector.MakeVec2[int32](0, 0),
 		scale:    1,
@@ -49,8 +48,8 @@ func (t *TransformComponent) GetType() string {
 
 func (t *TransformComponent) Update(deltaTime float64) {
 	if !t.move.activate {
-		t.position.X += int32(float64(t.velocity.X) * deltaTime)
-		t.position.Y += int32(float64(t.velocity.Y) * deltaTime)
+		t.position.X += float64(t.velocity.X) * deltaTime
+		t.position.Y += float64(t.velocity.Y) * deltaTime
 
 		return
 	}
@@ -78,14 +77,13 @@ func (t *TransformComponent) Update(deltaTime float64) {
 		}
 	}
 
-	// TODO: trocar o vector position de int para float
-	t.position.X += int32(math.Round(float64(t.velocity.X*t.move.directions.X) * deltaTime))
-	t.position.Y += int32(math.Round(float64(t.velocity.Y*t.move.directions.Y) * deltaTime))
+	t.position.X += float64(t.velocity.X*t.move.directions.X) * deltaTime
+	t.position.Y += float64(t.velocity.Y*t.move.directions.Y) * deltaTime
 }
 
 func (t *TransformComponent) Render() {}
 
-func (t *TransformComponent) Position(x, y int32) {
+func (t *TransformComponent) Position(x, y float64) {
 	t.position.X = x
 	t.position.Y = y
 }
@@ -104,7 +102,7 @@ func (t *TransformComponent) Scale(s int32) {
 	t.scale = s
 }
 
-func (t *TransformComponent) GetPosition() vector.Vec2[int32] {
+func (t *TransformComponent) GetPosition() vector.Vec2[float64] {
 	return t.position
 }
 
