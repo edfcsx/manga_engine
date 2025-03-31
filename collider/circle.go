@@ -62,7 +62,7 @@ func (c *Circle) GetRadius() float64 {
 	return c.radius
 }
 
-func (c *Circle) CollidesWith(shape mangaI.Shape) bool {
+func (c *Circle) CollidesWith(shape mangaI.ColliderShape) bool {
 	switch shape.GetType() {
 	case mangaI.PointType:
 		return c.collidesPoint(shape)

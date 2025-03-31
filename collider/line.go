@@ -69,7 +69,7 @@ func (l *Line) Render(t mangaI.TransformComponent, renderer *sdl.Renderer) {
 	}
 }
 
-func (l *Line) CollidesWith(shape mangaI.Shape) bool {
+func (l *Line) CollidesWith(shape mangaI.ColliderShape) bool {
 	switch shape.GetType() {
 	case mangaI.PointType:
 		return l.collidesPoint(shape)

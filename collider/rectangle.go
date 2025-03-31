@@ -75,7 +75,7 @@ func (r *Rectangle) Bottom() int32 {
 	return r.y + r.height
 }
 
-func (r *Rectangle) CollidesWith(shape mangaI.Shape) bool {
+func (r *Rectangle) CollidesWith(shape mangaI.ColliderShape) bool {
 	switch shape.GetType() {
 	case mangaI.PointType:
 		return r.collidesPoint(shape)

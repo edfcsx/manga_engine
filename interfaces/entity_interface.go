@@ -9,6 +9,7 @@ const (
 	TransformComponentID = "TRANSFORM"
 	SpriteComponentID    = "SPRITE"
 	ScriptComponentID    = "SCRIPT"
+	ColliderComponentID  = "COLLIDER"
 )
 
 type Component interface {

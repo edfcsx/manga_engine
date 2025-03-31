@@ -55,7 +55,7 @@ func (p *Point) Distance(x int32, y int32) float64 {
 	return math.Sqrt((deltaX * deltaX) + (deltaY * deltaY))
 }
 
-func (p *Point) CollidesWith(shape mangaI.Shape) bool {
+func (p *Point) CollidesWith(shape mangaI.ColliderShape) bool {
 	switch shape.GetType() {
 	case mangaI.PointType:
 		return p.collidesPoint(shape)
@@ -70,7 +70,7 @@ func (p *Point) CollidesWith(shape mangaI.Shape) bool {
 	}
 }
 
-func (p *Point) collidesPoint(b mangaI.Shape) bool {
+func (p *Point) collidesPoint(b mangaI.ColliderShape) bool {
 	return p.X() == b.X() && p.Y() == b.X()
 }
 
