@@ -25,7 +25,7 @@ var controls = map[string][]int{
 }
 
 var directionsKeys []int
-var sprite mangaI.SpriteComponente
+var sprite mangaI.SpriteComponent
 
 func (p *Player) Initialize() {
 	p.Label = "player"

@@ -54,7 +54,7 @@ const (
 	FLIP_HORIZONTAL          = FlipType(sdl.FLIP_HORIZONTAL)
 )
 
-type SpriteComponente interface {
+type SpriteComponent interface {
 	Component
 	AddAnimation(id string, index int32, numFrames int32, speed int32, isFixed bool, flip FlipType)
 	PlayAnimation(id string)
