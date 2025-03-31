@@ -53,6 +53,12 @@ func (l *Line) MoveTo(x, y int32) {
 	l.position.Y = y
 }
 
+func (l *Line) Scale(x int32) {
+	// não consigo pensar em uma forme eficiente de escalar linhas,
+	// nesse caso o usuário vai precisar criar as linhas com base no tamanho
+	// final do objeto
+}
+
 func (l *Line) Render(t mangaI.TransformComponent, renderer *sdl.Renderer) {
 	err := renderer.SetDrawColor(255, 0, 0, 255)
 

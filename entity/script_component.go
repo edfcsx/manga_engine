@@ -18,6 +18,8 @@ func (s *ScriptComponent) GetType() string {
 	return mangaI.ScriptComponentID
 }
 
+func (s *ScriptComponent) Initialize() {}
+
 func (s *ScriptComponent) Update(deltaTime float64) {
 	if s.Handler != nil {
 		s.Handler()

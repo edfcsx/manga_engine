@@ -38,6 +38,11 @@ func (r *Rectangle) MoveTo(x, y int32) {
 	r.y = y
 }
 
+func (r *Rectangle) Scale(x int32) {
+	r.width *= x
+	r.height *= x
+}
+
 func (r *Rectangle) Render(t mangaI.TransformComponent, renderer *sdl.Renderer) {
 	err := renderer.SetDrawColor(255, 0, 0, 255)
 

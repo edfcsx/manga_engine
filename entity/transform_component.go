@@ -46,6 +46,8 @@ func (t *TransformComponent) GetType() string {
 	return mangaI.TransformComponentID
 }
 
+func (t *TransformComponent) Initialize() {}
+
 func (t *TransformComponent) Update(deltaTime float64) {
 	if !t.move.activate {
 		t.position.X += float64(t.velocity.X) * deltaTime

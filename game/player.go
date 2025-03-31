@@ -37,7 +37,7 @@ func (p *Player) Initialize() {
 
 	transform := entity.MakeTransformComponent(p)
 	transform.Size(192, 192)
-	//transform.Scale(4)
+	transform.Scale(4)
 	transform.Velocity(500, 500)
 
 	transform.Enable8DirectionsMove(controls["up"], controls["down"], controls["left"], controls["right"])

@@ -35,6 +35,10 @@ func (p *Point) MoveTo(x, y int32) {
 	p.y = y
 }
 
+func (p *Point) Scale(x int32) {
+	// não existe scale de ponto
+}
+
 func (p *Point) Render(t mangaI.TransformComponent, r *sdl.Renderer) {
 	// TODO: add errors in log
 	err := r.SetDrawColor(255, 0, 0, 255)

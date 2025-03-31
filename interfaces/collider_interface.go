@@ -9,6 +9,7 @@ type ColliderShape interface {
 	GetType() int32
 	CollidesWith(shape ColliderShape) bool
 	Render(t TransformComponent, r *sdl.Renderer)
+	Scale(x int32)
 }
 
 const (

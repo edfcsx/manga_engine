@@ -56,6 +56,8 @@ func (s *SpriteComponent) GetType() string {
 	return mangaI.SpriteComponentID
 }
 
+func (s *SpriteComponent) Initialize() {}
+
 func (s *SpriteComponent) SetTexture(textureID string) error {
 	text := texture.GetTexture(textureID)
 

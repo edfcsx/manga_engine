@@ -14,6 +14,7 @@ const (
 
 type Component interface {
 	GetType() string
+	Initialize()
 	Update(deltaTime float64)
 	Render()
 }

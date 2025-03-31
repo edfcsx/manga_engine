@@ -36,6 +36,14 @@ func (c *ColliderComponent) GetType() string {
 	return mangaI.ColliderComponentID
 }
 
+func (c *ColliderComponent) Initialize() {
+	scale := c.transform.GetScale()
+
+	if scale > 1 {
+		c.Shape.Scale(scale)
+	}
+}
+
 func (c *ColliderComponent) Update(deltaTime float64) {
 	c.position = c.transform.GetPosition()
 	c.Shape.MoveTo(int32(c.position.X)+c.margins.X, int32(c.position.Y)+c.margins.Y)
@@ -48,6 +56,7 @@ func (c *ColliderComponent) Render() {
 }
 
 func (c *ColliderComponent) SetMargins(x, y int32) {
-	c.margins.X = x
-	c.margins.Y = y
+	scale := c.transform.GetScale()
+	c.margins.X = x * scale
+	c.margins.Y = y * scale
 }

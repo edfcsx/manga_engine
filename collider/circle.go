@@ -37,6 +37,10 @@ func (c *Circle) MoveTo(x, y int32) {
 	c.y = y
 }
 
+func (c *Circle) Scale(x int32) {
+	c.radius *= float64(x)
+}
+
 func (c *Circle) Render(t mangaI.TransformComponent, renderer *sdl.Renderer) {
 	err := renderer.SetDrawColor(255, 0, 0, 255)
 

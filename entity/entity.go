@@ -18,6 +18,7 @@ func (e *Entity) AddComponent(componentType string, c mangaI.Component) {
 	}
 
 	e.components[componentType] = c
+	c.Initialize()
 }
 
 func (e *Entity) GetComponent(componentType string) mangaI.Component {
