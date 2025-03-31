@@ -24,8 +24,14 @@ var controls = map[string][]int{
 	"right": []int{keyboard.GetKeyCode("d"), keyboard.GetKeyCode("right")},
 }
 
+const (
+	LookingRight = 0x01
+	LookingLeft  = 0x02
+)
+
 var directionsKeys []int
 var sprite mangaI.SpriteComponent
+var lookingAt = LookingRight
 
 func (p *Player) Initialize() {
 	p.Label = "player"
@@ -53,22 +59,31 @@ func (p *Player) Initialize() {
 	}
 
 	sprite = entity.MakeSpriteComponent(p, "goblin")
-	sprite.AddAnimation("idle", 0, 7, 80, false, mangaI.FLIP_NONE)
+
+	sprite.AddAnimation("idle-right", 0, 7, 80, false, mangaI.FLIP_NONE)
+	sprite.AddAnimation("idle-left", 0, 7, 80, false, mangaI.FLIP_HORIZONTAL)
+
 	sprite.AddAnimation("right", 1, 6, 80, false, mangaI.FLIP_NONE)
 	sprite.AddAnimation("left", 1, 6, 80, false, mangaI.FLIP_HORIZONTAL)
 
-	sprite.PlayAnimation("idle")
+	sprite.PlayAnimation("idle-right")
 
 	p.AddComponent(mangaI.SpriteComponentID, sprite)
 
 	p.AddComponent(mangaI.ScriptComponentID, entity.MakeScriptComponent(p, func() {
 		if !keyboard.IsAnyKeyPressed(directionsKeys) {
-			sprite.PlayAnimation("idle")
+			if lookingAt == LookingRight {
+				sprite.PlayAnimation("idle-right")
+			} else {
+				sprite.PlayAnimation("idle-left")
+			}
 		} else {
 			if keyboard.IsAnyKeyPressed(controls["right"]) {
 				sprite.PlayAnimation("right")
+				lookingAt = LookingRight
 			} else if keyboard.IsAnyKeyPressed(controls["left"]) {
 				sprite.PlayAnimation("left")
+				lookingAt = LookingLeft
 			}
 		}
 	}))
