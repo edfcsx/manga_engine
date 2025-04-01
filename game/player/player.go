@@ -1,6 +1,7 @@
-package game
+package player
 
 import (
+	"fmt"
 	"github.com/edfcsx/manga_engine/collider"
 	"github.com/edfcsx/manga_engine/entity"
 	mangaI "github.com/edfcsx/manga_engine/interfaces"
@@ -43,7 +44,7 @@ func (p *Player) Initialize() {
 
 	transform := entity.MakeTransformComponent(p)
 	transform.Size(192, 192)
-	transform.Scale(4)
+	transform.Scale(3)
 	transform.Velocity(500, 500)
 
 	transform.Enable8DirectionsMove(controls["up"], controls["down"], controls["left"], controls["right"])
@@ -89,7 +90,9 @@ func (p *Player) Initialize() {
 	}))
 
 	shape := collider.MakeRectangleShape(70, 80)
-	collision := entity.MakeColliderComponent(p, shape, nil)
+	collision := entity.MakeColliderComponent(p, shape, mangaI.ColliderMoving, func(label string) {
+		fmt.Println("player collision in :> ", label)
+	})
 	collision.SetMargins(55, 50)
 	p.AddComponent(mangaI.ColliderComponentID, collision)
 }

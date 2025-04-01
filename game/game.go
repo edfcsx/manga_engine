@@ -1,6 +1,8 @@
 package game
 
 import (
+	"github.com/edfcsx/manga_engine/game/enemy"
+	"github.com/edfcsx/manga_engine/game/player"
 	"github.com/edfcsx/manga_engine/scene"
 )
 
@@ -15,7 +17,8 @@ func init() {
 	HomeScene.UpdateHandler = update
 	HomeScene.RenderHandler = render
 
-	HomeScene.AddEntity(MakePlayer())
+	HomeScene.AddEntity(player.MakePlayer())
+	HomeScene.AddEntity(enemy.MakeEnemy())
 }
 
 func initialize() {

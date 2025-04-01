@@ -2,6 +2,7 @@ package manga
 
 import (
 	"errors"
+	"github.com/edfcsx/manga_engine/collider"
 	mangaI "github.com/edfcsx/manga_engine/interfaces"
 	"github.com/edfcsx/manga_engine/keyboard"
 	"github.com/edfcsx/manga_engine/texture"
@@ -111,6 +112,7 @@ func (m *manga) Initialize(window mangaI.Window, scene mangaI.Scene, fpsTarget u
 		m.processEvents()
 		m.update()
 		m.render()
+		collider.ResolveCollisions()
 	}
 }
 
